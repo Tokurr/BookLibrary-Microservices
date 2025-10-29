@@ -34,7 +34,6 @@ public class BookService {
     public BookIdDto findByIsbn(String isbn)
     {
       return  bookDtoConvertor.convertBookIdDto(bookRepository.findByIsbn(isbn).orElseThrow(()-> new BookNotFoundException("Book couldn't found by isbn: " + isbn))) ;
-
     }
 
     public BookDto findBookDetailsById(String id)

@@ -1,5 +1,6 @@
 package com.BookLibrary.library_service.controller;
 
+import com.BookLibrary.library_service.dto.AddBookRequest;
 import com.BookLibrary.library_service.dto.LibraryDto;
 import com.BookLibrary.library_service.service.LibraryService;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,12 @@ public class LibraryController {
         return ResponseEntity.ok(libraryService.createLibrary());
     }
 
-
+    @PutMapping
+    public ResponseEntity<Void> addBookToLibrary(@RequestBody AddBookRequest request)
+    {
+        libraryService.addBookToLibrary(request);
+        return  ResponseEntity.ok().build();
+    }
 
 
 

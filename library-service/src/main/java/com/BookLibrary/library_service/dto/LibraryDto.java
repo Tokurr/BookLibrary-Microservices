@@ -13,7 +13,5 @@ public class LibraryDto {
     private String id;
     private List<BookDto> userBookList;
 
-    public LibraryDto(String id) {
-        this.id = id;
-    }
+
 }

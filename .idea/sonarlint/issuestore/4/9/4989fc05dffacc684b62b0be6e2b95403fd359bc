@@ -1,0 +1,12 @@
+
+„
+java:S1488$"bImmediately return this expression instead of assigning it to the temporary variable "libraryDto".(Å¶¦Ùøÿÿÿÿ8¤Ž¯Ü 3
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Š§èœ8¯ðÏÛ 3
+_
+java:S2259>"BA "NullPointerException" could be thrown; "book" is nullable here.(…Í¨ 8ËÎ¾¶¢3
+o
+java:S6204)"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ã¤£’8è¤ïÝ 3
+j
+java:S1128"HRemove this unused import 'com.BookLibrary.library_service.dto.BookDto'.(ÕÜ®‰üÿÿÿÿ8ãÎ¾¶¢3
+R
+java:S1128"0Remove this unused import 'java.awt.print.Book'.(ÕÓÄßúÿÿÿÿ8ãÎ¾¶¢3

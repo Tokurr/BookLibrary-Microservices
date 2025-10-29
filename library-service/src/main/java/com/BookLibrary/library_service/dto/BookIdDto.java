@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookIdDto {
-    private String bookId;
+    private String id;
     private String isbn;
 }
