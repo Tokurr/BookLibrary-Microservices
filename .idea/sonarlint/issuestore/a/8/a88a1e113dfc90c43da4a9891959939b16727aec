@@ -1,2 +1,3 @@
 
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(©¼óú
+p	java:S116"ORename this field "Isbn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷ÂÐæÿÿÿÿÿ8§Óž‡£3

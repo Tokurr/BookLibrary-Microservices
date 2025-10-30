@@ -2,7 +2,6 @@ package com.BookLibrary.library_service.service;
 
 import com.BookLibrary.library_service.client.BookServiceClient;
 import com.BookLibrary.library_service.dto.AddBookRequest;
-import com.BookLibrary.library_service.dto.BookDto;
 import com.BookLibrary.library_service.dto.BookIdDto;
 import com.BookLibrary.library_service.dto.LibraryDto;
 import com.BookLibrary.library_service.exception.LibraryNotFoundException;
@@ -11,7 +10,6 @@ import com.BookLibrary.library_service.repository.LibraryRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 

@@ -17,10 +17,10 @@ public class LibraryController {
         this.libraryService = libraryService;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<LibraryDto> getLibraryById(@PathVariable String id)
+    @GetMapping("{bookId}")
+    public ResponseEntity<LibraryDto> getLibraryById(@PathVariable String bookId)
     {
-        return ResponseEntity.ok(libraryService.getAllBooksLibraryById(id));
+        return ResponseEntity.ok(libraryService.getAllBooksLibraryById(bookId));
     }
 
     @PostMapping

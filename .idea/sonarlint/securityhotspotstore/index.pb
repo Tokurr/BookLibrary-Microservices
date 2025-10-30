@@ -53,3 +53,7 @@ _library-service/src/main/java/com/BookLibrary/library_service/controller/Librar
 Yeureka-service/src/main/java/com/BookLibrary/eureka_service/EurekaServiceApplication.java,6\2\62f60f213d554f963e46184540983beb312a120d
 ã
 [library-service/src/main/java/com/BookLibrary/library_service/client/BookServiceClient.java,9\3\9386092d44339456a6c926d340fbcf4929db74c9
+ç
+]library-service/src/main/java/com/BookLibrary/library_service/exception/ExceptionMessage.java,1\d\1d0886fa12b23b23b4c77f0db8ba8e4792a4f2a9
+ï
+elibrary-service/src/main/java/com/BookLibrary/library_service/client/RetreiveMessageErrorDecoder.java,2\b\2bfd4ca7c32df3091f4975124bbdc596fe1d5dcb

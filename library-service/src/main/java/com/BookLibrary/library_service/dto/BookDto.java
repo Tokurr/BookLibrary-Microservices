@@ -8,9 +8,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookDto {
-    private BookIdDto id;
+    private String id;
     private String title;
     private Integer year;
     private String author;
     private String pressName;
+    private String Isbn;
+
+    public BookDto(String id, String isbn) {
+        this.id = id;
+        Isbn = isbn;
+    }
 }

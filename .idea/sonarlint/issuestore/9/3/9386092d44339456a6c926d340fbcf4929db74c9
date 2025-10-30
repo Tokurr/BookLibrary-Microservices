@@ -1,3 +1,12 @@
 
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›­¤­üÿÿÿÿ8„ïÅÛ 3
+T
+java:S2629"7Use the built-in formatting to construct this argument.(º¢À8µøĞ†£3
+S
+java:S2629""7Use the built-in formatting to construct this argument.(†¸Ç|8¸î©‡£3
 {	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Íª“úÿÿÿÿ8î¬Ş³ 3
+^
+java:S3457"AFormat specifiers should be used instead of string concatenation.(º¢À8æøĞ†£3
+]
+java:S3457""AFormat specifiers should be used instead of string concatenation.(†¸Ç|8Ùî©‡£3
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8³Ÿ§Œ£3

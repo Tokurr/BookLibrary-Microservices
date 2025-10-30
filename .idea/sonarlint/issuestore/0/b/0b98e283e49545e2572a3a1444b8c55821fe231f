@@ -1,2 +1,8 @@
 
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ØÀé‹üÿÿÿÿ
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ØÀé‹üÿÿÿÿ8Ïï˜…£3
+
+java:S1128"_Remove this unused import 'com.BookLibrary.library_service.client.RetreiveMessageErrorDecoder'.(³ğ™œøÿÿÿÿ8…´Ò…£3
+R
+java:S1128"5Remove this unused import 'feign.codec.ErrorDecoder'.(°ôâÓ8…´Ò…£3
+e
+java:S1128"HRemove this unused import 'org.springframework.context.annotation.Bean'.(‚î‰Ş8…´Ò…£3

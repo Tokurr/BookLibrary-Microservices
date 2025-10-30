@@ -14,8 +14,5 @@ public class BookDto  {
     private String pressName;
     private String isbn;
 
-    public BookDto(String id, String isbn) {
-        this.id = id;
-        this.isbn = isbn;
-    }
+
 }
