@@ -3,6 +3,7 @@ package com.BookLibrary.library_service.controller;
 import com.BookLibrary.library_service.dto.AddBookRequest;
 import com.BookLibrary.library_service.dto.LibraryDto;
 import com.BookLibrary.library_service.service.LibraryService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class LibraryController {
 
     private final LibraryService libraryService;
-
+    @Value("${library-service.book.count}")
+    private String count;
 
     public LibraryController(LibraryService libraryService) {
         this.libraryService = libraryService;
@@ -37,6 +39,9 @@ public class LibraryController {
     }
 
 
-
+    @GetMapping("/count")
+    public ResponseEntity<String> getCount() {
+        return ResponseEntity.ok("Library count is" + count);
+    }
 
 }
