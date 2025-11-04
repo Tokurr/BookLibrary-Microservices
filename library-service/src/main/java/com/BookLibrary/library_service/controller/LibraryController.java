@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class LibraryController {
 
     private final LibraryService libraryService;
-    @Value("${library-service.book.count}")
-    private String count;
+
 
     public LibraryController(LibraryService libraryService) {
         this.libraryService = libraryService;
@@ -39,9 +38,13 @@ public class LibraryController {
     }
 
 
-    @GetMapping("/count")
-    public ResponseEntity<String> getCount() {
-        return ResponseEntity.ok("Library count is" + count);
+    @DeleteMapping("/removeFromLibraries/{bookId}")
+    public ResponseEntity<Void> removeBookFromLibraries(@PathVariable String bookId)
+    {
+        libraryService.removeBookFromLibraries(bookId);
+        return ResponseEntity.noContent().build();
     }
+
+
 
 }

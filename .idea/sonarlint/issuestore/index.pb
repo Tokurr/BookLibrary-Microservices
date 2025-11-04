@@ -57,3 +57,7 @@ Yeureka-service/src/main/java/com/BookLibrary/eureka_service/EurekaServiceApplic
 ]library-service/src/main/java/com/BookLibrary/library_service/exception/ExceptionMessage.java,1\d\1d0886fa12b23b23b4c77f0db8ba8e4792a4f2a9
 •
 elibrary-service/src/main/java/com/BookLibrary/library_service/client/RetreiveMessageErrorDecoder.java,2\b\2bfd4ca7c32df3091f4975124bbdc596fe1d5dcb
+E
+config-server/pom.xml,a\2\a2f9618c8ad821b143a07a29a9805fcb0b2df470
+‡
+Wconfig-server/src/main/java/com/library_book/config_server/ConfigServerApplication.java,7\b\7bedec525816e0f98f9d3e6da1df8e52b447531a

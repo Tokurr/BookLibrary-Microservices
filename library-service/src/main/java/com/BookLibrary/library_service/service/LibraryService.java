@@ -62,4 +62,13 @@ public class LibraryService {
     }
 
 
+    public void removeBookFromLibraries(String bookId){
+        libraryRepository.findAll().forEach(library -> {
+            if(library.getUserBook().remove(bookId))
+            {
+                libraryRepository.save(library);
+            }
+        });
+    }
+
 }

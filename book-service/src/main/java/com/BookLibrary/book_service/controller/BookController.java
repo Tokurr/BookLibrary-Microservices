@@ -3,14 +3,13 @@ package com.BookLibrary.book_service.controller;
 
 import com.BookLibrary.book_service.dto.BookDto;
 import com.BookLibrary.book_service.dto.BookIdDto;
+import com.BookLibrary.book_service.dto.CreateBookRequest;
 import com.BookLibrary.book_service.service.BookService;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,5 +42,22 @@ public class BookController {
     public ResponseEntity<BookDto> getBookById(@PathVariable @NotEmpty String id) {
         return ResponseEntity.ok(bookService.findBookDetailsById(id));
     }
+
+    @PostMapping()
+    public ResponseEntity<BookDto> createBook(@RequestBody CreateBookRequest createBookRequest)
+    {
+
+        return ResponseEntity.ok(bookService.createBook(createBookRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable String id)
+    {
+        bookService.deleteBook(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
+
 
 }
