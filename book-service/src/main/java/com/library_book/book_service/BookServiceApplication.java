@@ -1,0 +1,28 @@
+package com.library_book.book_service;
+
+import com.library_book.book_service.repository.BookRepository;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+
+@SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients
+public class BookServiceApplication {
+
+	private final BookRepository repository;
+
+	public BookServiceApplication(BookRepository repository) {
+		this.repository = repository;
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(BookServiceApplication.class, args);
+	}
+
+
+
+
+}
