@@ -25,9 +25,9 @@ public class LibraryController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
-    public ResponseEntity<LibraryDto> createLibrary()
+    public ResponseEntity<LibraryDto> createLibrary(@RequestParam String categoryName)
     {
-        return ResponseEntity.ok(libraryService.createLibrary());
+        return ResponseEntity.ok(libraryService.createLibrary(categoryName));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -37,7 +37,6 @@ public class LibraryController {
         libraryService.addBookToLibrary(request);
         return  ResponseEntity.ok().build();
     }
-
 
     @DeleteMapping("/removeFromLibraries/{bookId}")
     public ResponseEntity<Void> removeBookFromLibraries(@PathVariable String bookId)

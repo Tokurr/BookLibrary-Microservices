@@ -15,8 +15,12 @@ public class Library {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private String categoryName;
+
     @ElementCollection
     private List<String> userBook = new ArrayList<>();
 
-
+    public Library(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

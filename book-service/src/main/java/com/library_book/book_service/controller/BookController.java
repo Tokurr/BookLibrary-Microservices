@@ -6,10 +6,12 @@ import com.library_book.book_service.dto.BookIdDto;
 import com.library_book.book_service.dto.CreateBookRequest;
 import com.library_book.book_service.service.BookService;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class BookController {
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBook()
     {
-        return ResponseEntity.ok(bookService.gelAllBooks());
+        return ResponseEntity.ok(bookService.getAllBooks());
     }
 
     @GetMapping("/isbn/{isbn}")
@@ -42,22 +44,30 @@ public class BookController {
     public ResponseEntity<BookDto> getBookById(@PathVariable @NotEmpty String id) {
         return ResponseEntity.ok(bookService.findBookDetailsById(id));
     }
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/create")
-    public ResponseEntity<BookDto> createBook(@RequestBody CreateBookRequest createBookRequest)
-    {
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<BookDto> createBook(
+            @RequestPart("book") CreateBookRequest request,
+            @RequestPart(value = "coverImage", required = false) MultipartFile coverImage) {
 
-        return ResponseEntity.ok(bookService.createBook(createBookRequest));
+        return ResponseEntity.ok(bookService.createBook(request, coverImage));
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable String id)
     {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
-
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<BookDto>> searchBooks(
+            @RequestParam(required = false) String keyword,@RequestParam  int page, @RequestParam  int size
+
+            ){
+
+        return ResponseEntity.ok(bookService.searchBooks(keyword,page,size));
+    }
 
 
 }

@@ -7,10 +7,15 @@ import com.library_book.book_service.dto.CreateBookRequest;
 import com.library_book.book_service.dto.convertor.BookDtoConvertor;
 import com.library_book.book_service.exception.BookNotFoundException;
 import com.library_book.book_service.model.Book;
+import com.library_book.book_service.model.Location;
 import com.library_book.book_service.repository.BookRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +34,7 @@ public class BookService {
         this.librayServiceClient = librayServiceClient;
     }
 
-    public List<BookDto> gelAllBooks()
+    public List<BookDto> getAllBooks()
     {
         return bookRepository.findAll()
                 .stream()
@@ -48,9 +53,20 @@ public class BookService {
         return bookDtoConvertor.convertBookDto(bookRepository.findById(id).orElseThrow(()-> new BookNotFoundException("Book couldn't found by id: " + id)));
     }
 
-    public BookDto createBook(CreateBookRequest createBookRequest)
+    public BookDto createBook(CreateBookRequest createBookRequest, MultipartFile file)
     {
-        Book savedBook = new Book(createBookRequest.getTitle(),createBookRequest.getBookYear(),createBookRequest.getAuthor(),createBookRequest.getPressName(),createBookRequest.getIsbn());
+        byte[] imageBytes = null;
+
+        try {
+            if (file != null && !file.isEmpty()) {
+                imageBytes = file.getBytes();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Resim okunamadı", e);
+        }
+
+        Location location = new Location(createBookRequest.getLocationDto().getFloor(),createBookRequest.getLocationDto().getSection(),createBookRequest.getLocationDto().getShelf(),createBookRequest.getLocationDto().getRoom());
+        Book savedBook = new Book(createBookRequest.getTitle(),createBookRequest.getBookYear(),createBookRequest.getAuthor(),createBookRequest.getPressName(),createBookRequest.getIsbn(),createBookRequest.getCategory(),createBookRequest.getDescription(),imageBytes,location);
         return bookDtoConvertor.convertBookDto(bookRepository.save(savedBook));
 
     }
@@ -63,6 +79,17 @@ public class BookService {
         bookRepository.delete(book);
         librayServiceClient.removeBookFromLibraries(id);
 
+    }
+    @Transactional(readOnly = true)
+    public List<BookDto> searchBooks(String keyword, int page, int size)
+    {
+
+        Pageable pageable =  PageRequest.of(page, size);
+
+        return bookRepository.searchBooks(keyword, pageable)
+                .stream()
+                .map(bookDtoConvertor::convertBookDto)
+                .collect(Collectors.toList());
     }
 
 }

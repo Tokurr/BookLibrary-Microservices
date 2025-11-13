@@ -42,9 +42,10 @@ public class LibraryService {
     }
 
 
-    public LibraryDto createLibrary()
+    public LibraryDto createLibrary(String categpryName)
     {
-        Library createLibrary = libraryRepository.save(new Library());
+        Library library = new Library(categpryName);
+        Library createLibrary = libraryRepository.save(library);
         return new LibraryDto(createLibrary.getId(),new ArrayList<>());
 
     }
