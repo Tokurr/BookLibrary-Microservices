@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/library")
 public class LibraryController {
@@ -16,6 +18,13 @@ public class LibraryController {
 
     public LibraryController(LibraryService libraryService) {
         this.libraryService = libraryService;
+    }
+
+
+    @GetMapping("/list")
+    public ResponseEntity<List<LibraryDto>> getAllLibraries()
+    {
+        return ResponseEntity.ok(libraryService.getAllLibraries());
     }
 
     @GetMapping("{libraryId}")
@@ -43,6 +52,15 @@ public class LibraryController {
     {
         libraryService.removeBookFromLibraries(bookId);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @DeleteMapping("/remove/library/{libraryId}")
+    public ResponseEntity<Void> removeLibrary(@PathVariable String libraryId)
+    {
+        libraryService.removeLibrary(libraryId);
+        return ResponseEntity.noContent().build();
+
     }
 
 

@@ -4,6 +4,7 @@ import com.library_book.book_service.client.LibraryServiceClient;
 import com.library_book.book_service.dto.BookDto;
 import com.library_book.book_service.dto.BookIdDto;
 import com.library_book.book_service.dto.CreateBookRequest;
+import com.library_book.book_service.dto.UpdateBook;
 import com.library_book.book_service.dto.convertor.BookDtoConvertor;
 import com.library_book.book_service.exception.BookNotFoundException;
 import com.library_book.book_service.model.Book;
@@ -34,9 +35,10 @@ public class BookService {
         this.librayServiceClient = librayServiceClient;
     }
 
-    public List<BookDto> getAllBooks()
+    public List<BookDto> getAllBooks(int size, int page)
     {
-        return bookRepository.findAll()
+        Pageable pageable = PageRequest.of(page, size);
+        return bookRepository.findAll(pageable)
                 .stream()
                 .map(bookDtoConvertor::convertBookDto)
                 .collect(Collectors.toList());
@@ -90,6 +92,23 @@ public class BookService {
                 .stream()
                 .map(bookDtoConvertor::convertBookDto)
                 .collect(Collectors.toList());
+    }
+
+
+    public BookDto updateBook(UpdateBook book,String id)
+    {
+
+        Book dbBook = bookRepository.findById(id).orElseThrow(()-> new BookNotFoundException("Book couldn't found by id: " +id));
+
+        dbBook.setBookYear(book.getBookYear());
+        dbBook.setIsbn(book.getIsbn());
+        dbBook.setDescription(book.getDescription());
+        dbBook.setAuthor(book.getAuthor());
+        dbBook.setTitle(book.getTitle());
+        dbBook.setPressName(book.getPressName());
+
+       return bookDtoConvertor.convertBookDto(bookRepository.save(dbBook));
+
     }
 
 }

@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/v1/book/create").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/v1/book/delete/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT,"/v1/book/update/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(headerAuthFilter, UsernamePasswordAuthenticationFilter.class);;

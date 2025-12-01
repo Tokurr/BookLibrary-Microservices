@@ -32,7 +32,6 @@ public class SecurityConfig {
 
                         .anyRequest().permitAll()
                 )
-                .addFilterBefore(internalServiceAuthFilter ,AnonymousAuthenticationFilter.class)
                     .addFilterBefore(headerAuthFilter, UsernamePasswordAuthenticationFilter.class);;
         return http.build();
     }

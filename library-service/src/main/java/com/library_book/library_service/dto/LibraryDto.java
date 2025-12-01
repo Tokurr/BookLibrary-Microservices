@@ -10,8 +10,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LibraryDto {
+
+
     private String id;
     private List<BookDto> userBookList;
+    private String categoryName;
 
-
+    public LibraryDto(String id, List<BookDto> userBookList) {
+        this.id = id;
+        this.userBookList = userBookList;
+    }
 }

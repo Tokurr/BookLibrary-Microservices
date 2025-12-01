@@ -2,8 +2,10 @@ package com.library_book.library_service.service;
 
 import com.library_book.library_service.client.BookServiceClient;
 import com.library_book.library_service.dto.AddBookRequest;
+import com.library_book.library_service.dto.BookDto;
 import com.library_book.library_service.dto.BookIdDto;
 import com.library_book.library_service.dto.LibraryDto;
+import com.library_book.library_service.dto.convert.LibraryDtoConvertor;
 import com.library_book.library_service.exception.LibraryNotFoundException;
 import com.library_book.library_service.model.Library;
 import com.library_book.library_service.repository.LibraryRepository;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,9 +23,12 @@ public class LibraryService {
     private final BookServiceClient bookServiceClient;
 
 
-    public LibraryService(LibraryRepository libraryRepository, BookServiceClient bookServiceClient) {
+    private final LibraryDtoConvertor libraryDtoConvertor;
+
+    public LibraryService(LibraryRepository libraryRepository, BookServiceClient bookServiceClient, LibraryDtoConvertor libraryDtoConvertor) {
         this.libraryRepository = libraryRepository;
         this.bookServiceClient = bookServiceClient;
+        this.libraryDtoConvertor = libraryDtoConvertor;
     }
 
 
@@ -46,7 +52,7 @@ public class LibraryService {
     {
         Library library = new Library(categpryName);
         Library createLibrary = libraryRepository.save(library);
-        return new LibraryDto(createLibrary.getId(),new ArrayList<>());
+        return new LibraryDto(createLibrary.getId(),new ArrayList<>(),categpryName);
 
     }
 
@@ -71,5 +77,33 @@ public class LibraryService {
             }
         });
     }
+
+    public List<LibraryDto> getAllLibraries() {
+        List<Library> libraries = libraryRepository.findAll();
+
+        return libraries.stream()
+                .map(library -> {
+                    List<BookDto> bookDtoList = library.getUserBook()
+                            .stream()
+                            .map(bookServiceClient::getBookById)
+                            .map(ResponseEntity::getBody)
+                            .collect(Collectors.toList());
+
+
+                    return new LibraryDto(library.getId(), bookDtoList,library.getCategoryName());
+                })
+                .collect(Collectors.toList());
+    }
+
+    public void removeLibrary(String libraryId)
+    {
+        if(!libraryRepository.existsById(libraryId))
+        {
+            throw  new LibraryNotFoundException("library could not found by id: " + libraryId);
+        }
+
+        libraryRepository.deleteById(libraryId);
+    }
+
 
 }

@@ -4,7 +4,9 @@ package com.library_book.book_service.controller;
 import com.library_book.book_service.dto.BookDto;
 import com.library_book.book_service.dto.BookIdDto;
 import com.library_book.book_service.dto.CreateBookRequest;
+import com.library_book.book_service.dto.UpdateBook;
 import com.library_book.book_service.service.BookService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +30,13 @@ public class BookController {
     }
 
 
-    @GetMapping
-    public ResponseEntity<List<BookDto>> getAllBook()
+    @GetMapping("/list")
+    public ResponseEntity<List<BookDto>> getAllBook(
+            @RequestParam int size,
+            @RequestParam int page
+    )
     {
-        return ResponseEntity.ok(bookService.getAllBooks());
+        return ResponseEntity.ok(bookService.getAllBooks(size,page));
     }
 
     @GetMapping("/isbn/{isbn}")
@@ -44,9 +49,10 @@ public class BookController {
     public ResponseEntity<BookDto> getBookById(@PathVariable @NotEmpty String id) {
         return ResponseEntity.ok(bookService.findBookDetailsById(id));
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<BookDto> createBook(
-            @RequestPart("book") CreateBookRequest request,
+          @Valid @RequestPart("book") CreateBookRequest request,
             @RequestPart(value = "coverImage", required = false) MultipartFile coverImage) {
 
         return ResponseEntity.ok(bookService.createBook(request, coverImage));
@@ -68,6 +74,14 @@ public class BookController {
 
         return ResponseEntity.ok(bookService.searchBooks(keyword,page,size));
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<BookDto> updateBook(@RequestBody UpdateBook updateBook, @PathVariable String id)
+    {
+        return  ResponseEntity.ok(bookService.updateBook(updateBook,id));
+    }
+
 
 
 }
